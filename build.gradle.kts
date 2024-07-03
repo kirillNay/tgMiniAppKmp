@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    kotlin("plugin.compose")
 
     id("convention.publication")
 }
@@ -24,18 +25,13 @@ kotlin {
     js(IR) {
         moduleName = "mini-app"
         binaries.executable()
+        browser()
     }
     sourceSets {
-        val jsMain by getting {
-            dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.ui)
-            }
+        jsMain.dependencies {
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.ui)
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }
